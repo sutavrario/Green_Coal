@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "[![Best IoT Track - Technologia 1.0](https://img.shields.io/badge/Award-Best%20IoT%20Track%20Winner-gold?style=for-the-badge&logo=trophy)](https://github.com/sutavrario/Green_Coal) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE) [![Firebase](https://img.shields.io/badge/Database-Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/) [![Tailwind CSS](https://img.shields.io/badge/UI-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
