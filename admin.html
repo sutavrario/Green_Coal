@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eco Ethos Admin Panel — Torrefaction Hub Control Center. Manage ward data, collection schedules, IoT sensors, and government notices.">
+  <title>Eco Ethos Admin — Torrefaction Hub Control</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="tricolor-strip">
+    <div class="strip-saffron"></div>
+    <div class="strip-white"></div>
+    <div class="strip-green"></div>
+  </div>
+
+  <!-- ═══ CURTAIN TRANSITION ═══ -->
+  <div class="curtain-overlay" id="curtain">
+    <div class="curtain-stripe saffron"></div>
+    <div class="curtain-stripe white">
+      <div class="curtain-tagline" id="curtainTagline">Sare Jaha Se Achcha Hindustan Humara</div>
+      <div class="ashoka-chakra-bg">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
+          <circle cx="50" cy="50" r="8" fill="#000080"/>
+          <g stroke="#000080" stroke-width="1">
+            <line x1="50" y1="5" x2="50" y2="95"/><line x1="5" y1="50" x2="95" y2="50"/>
+            <line x1="18" y1="18" x2="82" y2="82"/><line x1="82" y1="18" x2="18" y2="82"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(15 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(30 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(45 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(60 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(75 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(105 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(120 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(135 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(150 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(165 50 50)"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="curtain-stripe green"></div>
+  </div>
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
+          <circle cx="50" cy="50" r="8" fill="#000080"/>
+          <g stroke="#000080" stroke-width="1">
+            <line x1="50" y1="5" x2="50" y2="95"/>
+            <line x1="5" y1="50" x2="95" y2="50"/>
+            <line x1="18" y1="18" x2="82" y2="82"/>
+            <line x1="82" y1="18" x2="18" y2="82"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(15 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(30 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(45 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(60 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(75 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(105 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(120 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(135 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(150 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(165 50 50)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>Eco Ethos Admin</h1>
+        <span>Torrefaction Hub</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-link active" data-section="overview"><span class="icon">📊</span> Overview</button>
+      <button class="nav-link" data-section="ward-data"><span class="icon">📝</span> Ward Data</button>
+      <button class="nav-link" data-section="schedules"><span class="icon">🗓️</span> Schedules</button>
+      <button class="nav-link" data-section="notices"><span class="icon">📢</span> Notices</button>
+      <button class="nav-link" data-section="iot"><span class="icon">📡</span> IoT Controls</button>
+      <button class="nav-link" data-section="process"><span class="icon">🏭</span> Process Control</button>
+    </nav>
+
+    <div class="sidebar-links">
+      
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">SM</div>
+      <div class="user-meta">
+        <span class="user-name">Sutavra Mitra</span>
+        <span class="user-role">Hub Administrator</span>
+      </div>
+      <span class="user-online"></span>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="admin-main">
+    <header class="admin-topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="topbar-title">
+        <h2 id="secTitle">Overview</h2>
+        <span id="secSubtitle">System-wide summary &amp; quick actions</span>
+      </div>
+      <div class="topbar-right">
+        <div class="sys-status" id="sysStatusBadge">
+          <span class="status-dot green"></span>
+          <span id="sysStatusText">System Online</span>
+        </div>
+        <a href="index.html" class="exit-btn">❌ Exit</a>
+        <div class="topbar-badge admin">🔒 Admin Panel</div>
+      </div>
+    </header>
+
+    <!-- ─── OVERVIEW ─── -->
+    <section class="admin-section active" id="sec-overview">
+      <div class="stats-row" id="overviewStats"></div>
+      <div class="two-col-layout">
+        <div>
+          <div class="section-header"><h3>⚡ Quick Actions</h3></div>
+          <div class="quick-grid" id="quickActions"></div>
+        </div>
+        <div>
+          <div class="section-header"><h3>📡 Live IoT Snapshot</h3></div>
+          <div class="iot-snapshot" id="iotSnapshot"></div>
+        </div>
+      </div>
+      <div class="section-header"><h3>🏆 Ward Leaderboard</h3><p>Current eco-points rankings across all wards</p></div>
+      <div class="card"><div class="card-body" id="overviewTable" style="padding:0;overflow-x:auto;"></div></div>
+    </section>
+
+    <!-- ─── WARD DATA ─── -->
+    <section class="admin-section" id="sec-ward-data">
+      <div class="section-header"><h3>📝 Update Ward Data</h3><p>Select a ward and enter the latest collection and conversion figures. Data saves instantly and reflects on the public page.</p></div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-head"><h4>Select Ward to Update</h4></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Ward</label>
+            <select id="wardSelect">
+              <option value="">— Select a Ward —</option>
+            </select>
+          </div>
+
+          <div id="wardForm" style="display:none;">
+            <div class="ward-form-header" id="wdHeader"></div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Waste Collected (kg)</label>
+                <input type="number" id="wdWaste" min="0" step="0.1" placeholder="e.g. 850">
+                <span class="form-hint">Total biodegradable waste collected from this ward</span>
+              </div>
+              <div class="form-group">
+                <label>Green Coal Produced (kg)</label>
+                <input type="number" id="wdCoal" min="0" step="0.1" placeholder="e.g. 340">
+                <span class="form-hint">Total green coal output from this ward's waste</span>
+              </div>
+              <div class="form-group">
+                <label>CO₂ Offset (kg)</label>
+                <input type="number" id="wdCarbon" min="0" step="0.1" placeholder="e.g. 520">
+                <span class="form-hint">Estimated carbon offset from conversion</span>
+              </div>
+              <div class="form-group">
+                <label>Eco-Points</label>
+                <input type="number" id="wdPoints" min="0" placeholder="e.g. 4200">
+                <span class="form-hint">Gamification points (auto or manual)</span>
+              </div>
+              <div class="form-group">
+                <label>Active Participants</label>
+                <input type="number" id="wdUsers" min="0" placeholder="e.g. 35">
+                <span class="form-hint">Citizens actively participating from this ward</span>
+              </div>
+              <div class="form-group">
+                <label>Auto-Calculate Points?</label>
+                <label class="toggle-switch" style="margin-top:8px">
+                  <input type="checkbox" id="autoCalcPoints">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="form-hint">Auto-calc: 1 pt per 100g waste + 2x for CO₂ offset</span>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary" id="wardSaveBtn">💾 Save Ward Data</button>
+              <button class="btn btn-ghost" id="wardResetBtn">↺ Reset to Saved</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header"><h3>📋 All Wards — Current Data</h3></div>
+      <div class="card"><div class="card-body" id="wardDataTable" style="padding:0;overflow-x:auto;"></div></div>
+    </section>
+
+    <!-- ─── SCHEDULES ─── -->
+    <section class="admin-section" id="sec-schedules">
+      <div class="section-header"><h3>🗓️ Collection Schedule</h3><p>Update garbage collection day, time, status, and collector unit for each ward. Changes reflect on the public page instantly.</p></div>
+      <div class="schedule-toolbar">
+        <div class="form-group" style="margin:0;flex:1;max-width:260px;">
+          <input type="text" id="scheduleSearch" placeholder="🔍 Search ward..." style="margin:0">
+        </div>
+        <button class="btn btn-ghost" id="markAllCompleted">✅ Mark All Completed</button>
+        <button class="btn btn-ghost" id="resetAllScheduled">🔄 Reset All to Scheduled</button>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0;overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Ward</th><th>Zone</th><th>Day</th><th>Time</th><th>Status</th><th>Collector</th><th style="text-align:center">Save</th></tr></thead>
+            <tbody id="schedulesBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── NOTICES ─── -->
+    <section class="admin-section" id="sec-notices">
+      <div class="section-header"><h3>📢 Government Notices</h3><p>Post notices that appear on the public citizen dashboard. Citizens see these as banners immediately after posting.</p></div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-head"><h4>✍️ Post New Notice</h4></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Notice Type</label>
+            <div class="notice-type-selector">
+              <button class="notice-type-btn active" data-type="info">ℹ️ Information</button>
+              <button class="notice-type-btn" data-type="warning">⚠️ Warning</button>
+              <button class="notice-type-btn" data-type="urgent">🚨 Urgent</button>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Notice Title</label>
+              <input type="text" id="noticeTitle" placeholder="e.g. Schedule change for Ward 5">
+            </div>
+            <div class="form-group">
+              <label>Target Ward (optional)</label>
+              <select id="noticeWard">
+                <option value="">All Wards</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea id="noticeMessage" placeholder="Enter the full notice message here..." style="min-height:100px"></textarea>
+          </div>
+          <div class="notice-preview" id="noticePreview" style="display:none;"></div>
+          <div class="btn-group">
+            <button class="btn btn-green" id="postNoticeBtn">📢 Post to Public Page</button>
+            <button class="btn btn-ghost" id="previewNoticeBtn">👁️ Preview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header"><h3>📋 Active Notices <span id="noticeCount" class="count-badge">0</span></h3></div>
+      <div class="card"><div id="noticesList"></div></div>
+    </section>
+
+    <!-- ─── IoT CONTROLS ─── -->
+    <section class="admin-section" id="sec-iot">
+      <div class="section-header"><h3>📡 IoT Sensor Controls</h3><p>Adjust simulated sensor readings. Values update on the public page and main dashboard in real-time.</p></div>
+
+      <div class="iot-grid">
+        <div class="iot-control" id="iotTempControl">
+          <div class="iot-header">
+            <h4>🌡️ Temperature</h4>
+            <span class="iot-status-pill" id="tempStatusPill">Optimal</span>
+          </div>
+          <div class="iot-big-val"><span id="iotTempVal">245.0</span><span class="iot-unit">°C</span></div>
+          <div class="iot-slider-row">
+            <span class="iot-min">150°</span>
+            <input type="range" id="iotTemp" min="150" max="350" step="0.1" value="245">
+            <span class="iot-max">350°</span>
+          </div>
+          <div class="iot-thresholds">Optimal: 200–300°C</div>
+        </div>
+
+        <div class="iot-control" id="iotGasControl">
+          <div class="iot-header">
+            <h4>💨 Gas Emission</h4>
+            <span class="iot-status-pill" id="gasStatusPill">Low</span>
+          </div>
+          <div class="iot-big-val"><span id="iotGasVal">12.5</span><span class="iot-unit">ppm</span></div>
+          <div class="iot-slider-row">
+            <span class="iot-min">0</span>
+            <input type="range" id="iotGas" min="0" max="60" step="0.1" value="12.5">
+            <span class="iot-max">60</span>
+          </div>
+          <div class="iot-thresholds">Safe: &lt;30 ppm | Warning: 30–45 | Danger: &gt;45</div>
+        </div>
+
+        <div class="iot-control" id="iotMoistControl">
+          <div class="iot-header">
+            <h4>💧 Moisture Level</h4>
+            <span class="iot-status-pill" id="moistStatusPill">Optimal</span>
+          </div>
+          <div class="iot-big-val"><span id="iotMoistVal">15.2</span><span class="iot-unit">%</span></div>
+          <div class="iot-slider-row">
+            <span class="iot-min">0%</span>
+            <input type="range" id="iotMoist" min="0" max="40" step="0.1" value="15.2">
+            <span class="iot-max">40%</span>
+          </div>
+          <div class="iot-thresholds">Target: &lt;20% for efficient torrefaction</div>
+        </div>
+
+        <div class="iot-control" id="iotEffControl">
+          <div class="iot-header">
+            <h4>⚡ Process Efficiency</h4>
+            <span class="iot-status-pill" id="effStatusPill">High</span>
+          </div>
+          <div class="iot-big-val"><span id="iotEffVal">82.5</span><span class="iot-unit">%</span></div>
+          <div class="iot-slider-row">
+            <span class="iot-min">30%</span>
+            <input type="range" id="iotEff" min="30" max="100" step="0.1" value="82.5">
+            <span class="iot-max">100%</span>
+          </div>
+          <div class="iot-thresholds">Good: &gt;70% | Excellent: &gt;85%</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-head"><h4>⚙️ System Controls</h4></div>
+        <div class="card-body">
+          <div class="sys-controls-grid">
+            <div class="sys-control-item">
+              <span class="sys-ctrl-label">System Online</span>
+              <label class="toggle-switch"><input type="checkbox" id="sysOnlineToggle" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="sys-control-item">
+              <span class="sys-ctrl-label">Reactor Status</span>
+              <select id="reactorStatus">
+                <option value="running">🟢 Running</option>
+                <option value="idle">🟡 Idle</option>
+                <option value="maintenance">🔴 Maintenance</option>
+              </select>
+            </div>
+            <div class="sys-control-item">
+              <span class="sys-ctrl-label">Auto-Simulate</span>
+              <label class="toggle-switch"><input type="checkbox" id="autoSimToggle"><span class="toggle-slider"></span></label>
+              <span style="font-size:11px;color:var(--text-muted);margin-left:8px">Drift values every 30s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" id="iotSaveBtn">💾 Save IoT Data</button>
+        <button class="btn btn-ghost" id="iotRandomBtn">🎲 Random Values</button>
+      </div>
+    </section>
+
+    <!-- ─── PROCESS CONTROL ─── -->
+    <section class="admin-section" id="sec-process">
+      <div class="section-header"><h3>🏭 Process Control</h3><p>Control what citizens see as "Live Process Status" on the public page. Set current batch, stage, and progress below.</p></div>
+
+      <div class="process-live-preview">
+        <div class="plp-label">👁️ Public Page Preview</div>
+        <div class="plp-content" id="processPreview"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h4>Current Batch Status</h4></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Batch Number</label>
+              <input type="number" id="procBatch" placeholder="e.g. 847">
+            </div>
+            <div class="form-group">
+              <label>Current Stage</label>
+              <select id="procStage">
+                <option value="collection">🗑️ Waste Collection</option>
+                <option value="preprocessing">🔄 Pre-processing</option>
+                <option value="torrefaction">🔥 Torrefaction</option>
+                <option value="cooling">❄️ Cooling &amp; QC</option>
+                <option value="briquetting">🧱 Briquette Formation</option>
+                <option value="completed">✅ Batch Completed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Progress: <strong id="procProgressVal" style="color:var(--primary)">50%</strong></label>
+              <input type="range" id="procProgress" min="0" max="100" value="50" style="width:100%;margin-top:6px;">
+            </div>
+            <div class="form-group">
+              <label>Estimated Time Remaining</label>
+              <input type="text" id="procEta" placeholder="e.g. 35 mins">
+            </div>
+            <div class="form-group">
+              <label>Total Batches Today</label>
+              <input type="number" id="procTotalBatches" placeholder="e.g. 12">
+            </div>
+            <div class="form-group">
+              <label>Completed Batches</label>
+              <input type="number" id="procCompletedBatches" placeholder="e.g. 8">
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" id="procSaveBtn">💾 Update Process Status</button>
+            <button class="btn btn-ghost" id="procNextStageBtn">⏭️ Advance to Next Stage</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module" src="js/admin.ts"></script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eco Ethos Public Dashboard — Track garbage collection schedules, waste-to-green coal progress, ward leaderboards, and government notices for your municipality.">
+  <title>Eco Ethos — Citizen Dashboard | Smart Waste-to-Green Coal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/public.css">
+  <link rel="stylesheet" href="css/splash.css">
+</head>
+<body>
+
+  <div id="splashScreen" class="splash-screen">
+    <!-- Tricolor Borders -->
+    <div class="splash-tricolor-top"></div>
+    <div class="splash-tricolor-bottom"></div>
+    
+    <!-- Ashoka Chakra Watermark -->
+    <div class="splash-chakra-watermark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
+        <circle cx="50" cy="50" r="8" fill="#000080"/>
+        <g stroke="#000080" stroke-width="1">
+          <line x1="50" y1="5" x2="50" y2="95"/><line x1="5" y1="50" x2="95" y2="50"/>
+          <line x1="18" y1="18" x2="82" y2="82"/><line x1="82" y1="18" x2="18" y2="82"/>
+          <line x1="50" y1="5" x2="50" y2="95" transform="rotate(15 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(30 50 50)"/>
+          <line x1="50" y1="5" x2="50" y2="95" transform="rotate(45 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(60 50 50)"/>
+          <line x1="50" y1="5" x2="50" y2="95" transform="rotate(75 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(105 50 50)"/>
+          <line x1="50" y1="5" x2="50" y2="95" transform="rotate(120 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(135 50 50)"/>
+          <line x1="50" y1="5" x2="50" y2="95" transform="rotate(150 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(165 50 50)"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="splash-content">
+      <h1 class="splash-heading">ECO ETHOS</h1>
+      <p class="splash-subtitle">Refreshing our planet, one degree at a time</p>
+      <button class="splash-btn" id="splashEnterBtn">View the live status</button>
+    </div>
+
+    <a href="admin.html" class="admin-login-btn">Admin ? LOG IN</a>
+  </div>
+
+  
+  <!-- ═══ CURTAIN TRANSITION ═══ -->
+  <div class="curtain-overlay" id="curtain">
+    <div class="curtain-stripe saffron"></div>
+    <div class="curtain-stripe white">
+      <div class="curtain-tagline" id="curtainTagline">Sare jahan se achcha hindusita humara</div>
+      <div class="ashoka-chakra-bg">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
+          <circle cx="50" cy="50" r="8" fill="#000080"/>
+          <g stroke="#000080" stroke-width="1">
+            <line x1="50" y1="5" x2="50" y2="95"/><line x1="5" y1="50" x2="95" y2="50"/>
+            <line x1="18" y1="18" x2="82" y2="82"/><line x1="82" y1="18" x2="18" y2="82"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(15 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(30 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(45 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(60 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(75 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(105 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(120 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(135 50 50)"/>
+            <line x1="50" y1="5" x2="50" y2="95" transform="rotate(150 50 50)"/><line x1="50" y1="5" x2="50" y2="95" transform="rotate(165 50 50)"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="curtain-stripe green"></div>
+  </div>
+  
+  <div class="tricolor-strip">
+    <div class="strip-saffron"></div>
+    <div class="strip-white"></div>
+    <div class="strip-green"></div>
+  </div>
+
+  <!-- Background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+       ═══════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">🌱</div>
+        <div class="logo-text">
+          <h1>Eco Ethos</h1>
+          <span>Municipal Corp</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#notices" class="nav-item active">
+        <span class="nav-icon">📢</span>
+        <span class="nav-label">Notices</span>
+      </a>
+      <a href="#my-ward" class="nav-item">
+        <span class="nav-icon">📍</span>
+        <span class="nav-label">My Ward</span>
+      </a>
+      <a href="#schedule" class="nav-item">
+        <span class="nav-icon">🗓️</span>
+        <span class="nav-label">Schedule</span>
+      </a>
+      <a href="#progress" class="nav-item">
+        <span class="nav-icon">🏭</span>
+        <span class="nav-label">Live Plant</span>
+      </a>
+      <a href="#leaderboard" class="nav-item">
+        <span class="nav-icon">🏆</span>
+        <span class="nav-label">Leaderboard</span>
+      </a>
+      <a href="#impact" class="nav-item">
+        <span class="nav-icon">🌍</span>
+        <span class="nav-label">Impact</span>
+      </a>
+    </nav>
+
+    
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════ -->
+  <main class="main-content">
+    
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <div class="topbar-title">
+        <h2 id="topbarTitle">Citizen Dashboard</h2>
+        <span class="topbar-subtitle">Greenville Municipal Corporation</span>
+      </div>
+      <div class="topbar-actions">
+        <button id="connectHardwareBtn" class="exit-btn" style="background: rgba(19, 136, 8, 0.3); color: #138808;">🔌 Connect USB</button>
+        <button id="exitToSplashBtn" class="exit-btn">❌ Exit</button>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span id="sysStatusLabel">System Online</span>
+        </div>
+      </div>
+    </header>
+
+  <div class="public-content">
+
+    <!-- ═══ URGENT NOTICES TICKER (auto-hidden if empty) ═══ -->
+    <div class="urgent-ticker" id="urgentTicker" style="display:none;">
+      <span class="ticker-label">🚨 URGENT</span>
+      <div class="ticker-track"><div class="ticker-content" id="tickerContent"></div></div>
+    </div>
+
+    <!-- ═══ GOVERNMENT NOTICES ═══ -->
+    <section id="notices" class="notices-section content-section active">
+      <h2 class="section-title"><span class="emoji">📢</span>Government Notices</h2>
+      <div class="notices-list" id="noticesContainer">
+        <div class="empty-state">📭 No notices at the moment. Check back soon.</div>
+      </div>
+    </section>
+
+    
+
+    <!-- ═══ MY WARD SECTION ═══ -->
+    <section id="my-ward" class="ward-section content-section">
+      <div class="section-header-row">
+        <h2 class="section-title"><span class="emoji">📍</span>My Ward</h2>
+        <div class="ward-selector-row">
+          <label for="wardSelector">Select ward:</label>
+          <select class="ward-select" id="wardSelector"></select>
+        </div>
+      </div>
+
+      <div class="my-ward-grid">
+        <div class="mw-card rank-card">
+          <div class="mw-icon">🏆</div>
+          <div>
+            <div class="mw-value" id="wiRank">—</div>
+            <div class="mw-label">Current Rank</div>
+          </div>
+          <div class="rank-change" id="wiRankBadge"></div>
+        </div>
+        <div class="mw-card">
+          <div class="mw-icon green">♻️</div>
+          <div>
+            <div class="mw-value" id="wiWaste">—</div>
+            <div class="mw-label">Waste Collected</div>
+          </div>
+        </div>
+        <div class="mw-card">
+          <div class="mw-icon cyan">⚡</div>
+          <div>
+            <div class="mw-value" id="wiCoal">—</div>
+            <div class="mw-label">Green Coal Produced</div>
+          </div>
+        </div>
+        <div class="mw-card">
+          <div class="mw-icon violet">🌿</div>
+          <div>
+            <div class="mw-value" id="wiCarbon">—</div>
+            <div class="mw-label">CO₂ Offset</div>
+          </div>
+        </div>
+        <div class="mw-card">
+          <div class="mw-icon amber">⭐</div>
+          <div>
+            <div class="mw-value" id="wiPoints">—</div>
+            <div class="mw-label">Eco-Points Earned</div>
+          </div>
+        </div>
+        <div class="mw-card">
+          <div class="mw-icon rose">👥</div>
+          <div>
+            <div class="mw-value" id="wiUsers">—</div>
+            <div class="mw-label">Active Participants</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next collection for my ward -->
+      <div class="next-collection-card" id="nextCollectionCard">
+        <div class="nc-icon">🗑️</div>
+        <div class="nc-info">
+          <div class="nc-label">Next Garbage Collection for your ward</div>
+          <div class="nc-time" id="ncTime">—</div>
+          <div class="nc-detail" id="ncDetail">—</div>
+        </div>
+        <div class="nc-status" id="ncStatus"></div>
+      </div>
+    </section>
+
+    <!-- ═══ COLLECTION SCHEDULE ═══ -->
+    <section id="schedule" class="content-section">
+      <div class="section-header-row">
+        <h2 class="section-title"><span class="emoji">🗓️</span>Garbage Collection Schedule</h2>
+        <div class="schedule-legend">
+          <span class="legend-item scheduled">📅 Scheduled</span>
+          <span class="legend-item in-progress">🚛 In Progress</span>
+          <span class="legend-item completed">✅ Completed</span>
+          <span class="legend-item delayed">⏰ Delayed</span>
+        </div>
+      </div>
+      <div class="schedules-grid" id="schedulesContainer"></div>
+    </section>
+
+    <!-- ═══ LIVE PROCESS STATUS ═══ -->
+    <section id="progress" class="process-section content-section">
+<!-- ═══ HERO STATS ═══ -->
+    <div class="hero-section">
+      <h2 class="hero-title">Smart Waste → Green Coal</h2>
+      <p class="hero-subtitle">Live data from Greenville Torrefaction Plant • Updated every 5 seconds</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-icon">🗑️</div>
+          <div class="hero-stat-value" id="hWaste">—</div>
+          <div class="hero-stat-unit">kg</div>
+          <div class="hero-stat-label">Waste Collected</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icon">⚡</div>
+          <div class="hero-stat-value" id="hCoal">—</div>
+          <div class="hero-stat-unit">kg</div>
+          <div class="hero-stat-label">Green Coal Produced</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icon">🌍</div>
+          <div class="hero-stat-value" id="hCarbon">—</div>
+          <div class="hero-stat-unit">kg CO₂</div>
+          <div class="hero-stat-label">Carbon Offset</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icon">👥</div>
+          <div class="hero-stat-value" id="hUsers">—</div>
+          <div class="hero-stat-unit">citizens</div>
+          <div class="hero-stat-label">Active Participants</div>
+        </div>
+      </div>
+    </div>
+      <h2 class="section-title"><span class="emoji">🏭</span>Live Torrefaction Plant Status</h2>
+
+      <div class="process-banner">
+        <div class="process-banner-glow"></div>
+        <div class="process-top">
+          <div>
+            <h4>🔥 Greenville Torrefaction Plant — Live Feed</h4>
+            <span class="process-batch" id="procBatchNum">Batch #—</span>
+          </div>
+          <div class="reactor-status" id="reactorStatusBadge">🟢 Running</div>
+        </div>
+
+        <!-- Stage pipeline -->
+        <div class="stage-pipeline" id="stagePipeline">
+          <div class="stage-step" data-stage="collection">🗑️<span>Collection</span></div>
+          <div class="stage-arrow">→</div>
+          <div class="stage-step" data-stage="preprocessing">🔄<span>Pre-process</span></div>
+          <div class="stage-arrow">→</div>
+          <div class="stage-step" data-stage="torrefaction">🔥<span>Torrefaction</span></div>
+          <div class="stage-arrow">→</div>
+          <div class="stage-step" data-stage="cooling">❄️<span>Cooling</span></div>
+          <div class="stage-arrow">→</div>
+          <div class="stage-step" data-stage="briquetting">🧱<span>Briquetting</span></div>
+          <div class="stage-arrow">→</div>
+          <div class="stage-step" data-stage="completed">✅<span>Complete</span></div>
+        </div>
+
+        <div class="process-stage-label" id="procLabel">Processing...</div>
+        <div class="process-progress">
+          <div class="progress-track">
+            <div class="progress-fill" id="procFill" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="process-meta">
+          <span>Progress: <strong id="procPct">0%</strong></span>
+          <span>ETA: <strong id="procEtaVal">—</strong></span>
+          <span>Batches Today: <strong id="procComplVal">—</strong> / <strong id="procTotalVal">—</strong></span>
+        </div>
+      </div>
+
+      <!-- IoT live readings -->
+      <div class="iot-live-grid">
+        <div class="iot-reading-card" id="iotTempCard">
+          <div class="irt-icon">🌡️</div>
+          <div class="irt-val" id="pubTemp">—</div>
+          <div class="irt-unit">°C</div>
+          <div class="irt-label">Temperature</div>
+          <div class="irt-status" id="pubTempStatus">—</div>
+        </div>
+        <div class="iot-reading-card" id="iotSmokeCard">
+          <div class="irt-icon">💨</div>
+          <div class="irt-val" id="pubSmoke">—</div>
+          <div class="irt-unit">%</div>
+          <div class="irt-label">Combustible Gas (MQ-2)</div>
+          <div class="irt-status" id="pubSmokeStatus">—</div>
+        </div>
+        <div class="iot-reading-card" id="iotAirCard">
+          <div class="irt-icon">🌫️</div>
+          <div class="irt-val" id="pubAir">—</div>
+          <div class="irt-unit">%</div>
+          <div class="irt-label">Air Quality (MQ-135)</div>
+          <div class="irt-status" id="pubAirStatus">—</div>
+        </div>
+        <div class="iot-reading-card" id="iotMoistCard">
+          <div class="irt-icon">💧</div>
+          <div class="irt-val" id="pubMoist">—</div>
+          <div class="irt-unit">%</div>
+          <div class="irt-label">Moisture</div>
+          <div class="irt-status" id="pubMoistStatus">—</div>
+        </div>
+        <div class="iot-reading-card" id="iotWeightCard">
+          <div class="irt-icon">⚖️</div>
+          <div class="irt-val" id="pubWeight">—</div>
+          <div class="irt-unit">g</div>
+          <div class="irt-label">Biomass Weight</div>
+          <div class="irt-status" id="pubWeightStatus">—</div>
+        </div>
+        <div class="iot-reading-card" id="iotPressureCard">
+          <div class="irt-icon">📈</div>
+          <div class="irt-val" id="pubPressure">—</div>
+          <div class="irt-unit">Pa</div>
+          <div class="irt-label">Chamber Pressure</div>
+          <div class="irt-status" id="pubPressureStatus">—</div>
+        </div>
+        <div class="iot-reading-card" id="iotHeaterCard">
+          <div class="irt-icon">🔥</div>
+          <div class="irt-val" id="pubHeater">—</div>
+          <div class="irt-unit">State</div>
+          <div class="irt-label">Heater Status</div>
+          <div class="irt-status" id="pubHeaterStatus">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ LEADERBOARD ═══ -->
+    <section id="leaderboard" class="leaderboard-section content-section">
+      <div class="section-header-row">
+        <h2 class="section-title"><span class="emoji">🏆</span>Ward Eco-Points Leaderboard</h2>
+        <div class="lb-filters">
+          <button class="lb-filter-btn active" data-sort="points">By Points</button>
+          <button class="lb-filter-btn" data-sort="wasteCollected">By Waste</button>
+          <button class="lb-filter-btn" data-sort="carbonSaved">By CO₂</button>
+        </div>
+      </div>
+
+      <!-- Top 3 podium -->
+      <div class="podium" id="podium"></div>
+
+      <!-- Full table -->
+      <div class="lb-card">
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th style="width:50px">Rank</th>
+              <th>Ward</th>
+              <th>Zone</th>
+              <th>Eco-Points</th>
+              <th>Waste Collected</th>
+              <th>CO₂ Saved</th>
+              <th style="text-align:center">Progress</th>
+            </tr>
+          </thead>
+          <tbody id="lbBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══ ENVIRONMENTAL IMPACT ═══ -->
+    <section id="impact" class="impact-section content-section">
+      <h2 class="section-title"><span class="emoji">🌍</span>Environmental Impact</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">🗑️</div>
+          <div class="impact-value" id="impWaste">—</div>
+          <div class="impact-label">Total Waste Diverted from Landfills</div>
+          <div class="impact-desc">Biodegradable waste converted instead of decomposing in landfills and producing methane gas</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">⚡</div>
+          <div class="impact-value" id="impCoal">—</div>
+          <div class="impact-label">Sustainable Green Coal Produced</div>
+          <div class="impact-desc">Clean solid fuel alternative produced via torrefaction, ready for use by industries and households</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">🌿</div>
+          <div class="impact-value" id="impCarbon">—</div>
+          <div class="impact-label">Carbon Dioxide Offset</div>
+          <div class="impact-desc">Greenhouse gas emissions prevented by diverting waste and replacing fossil fuels with green coal</div>
+        </div>
+      </div>
+      <!-- Trees equivalent -->
+      <div class="trees-card">
+        <div class="trees-icon">🌳</div>
+        <div>
+          <div class="trees-value" id="treesEquiv">—</div>
+          <div class="trees-label">Equivalent trees planted (based on CO₂ offset — 1 tree absorbs ~22 kg CO₂/year)</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /public-content -->
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="public-footer">
+      <p class="footer-brand">🌱 Eco Ethos — AI &amp; IoT Smart Waste-to-Green Coal System</p>
+      <p class="footer-links">
+        
+        <a href="#notices">📢 Notices</a>
+        <a href="#leaderboard">🏆 Leaderboard</a>
+        <a href="#impact">🌍 Impact</a>
+      </p>
+      <p class="footer-copy">© 2026 Greenville Municipal Corporation • Data updates every 5 seconds</p>
+    </div>
+  </footer>
+</main>
+
+    <script type="module" src="js/public.ts"></script>
+
+  </body>
+</html>
