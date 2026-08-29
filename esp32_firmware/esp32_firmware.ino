@@ -43,11 +43,11 @@ void setup() {
 
   // Initialize HX711
   scale.begin(HX711_DT, HX711_SCK);
-  scale.tare(); // reset scale to 0
+  pinMode(HX711_DT, INPUT_PULLUP); // Prevent floating pin noise from freezing ESP32
 
   // Initialize HX710B
   pressureSensor.begin(HX710B_DT, HX710B_SCK);
-  pressureSensor.tare();
+  pinMode(HX710B_DT, INPUT_PULLUP); // Prevent floating pin noise
   
   // Give sensors time to warm up
   delay(1000);
@@ -77,13 +77,13 @@ void loop() {
     int moisture_val = analogRead(MOISTURE_PIN);
     
     float weight = 0.0;
-    if (scale.is_ready()) {
-      weight = scale.get_units(5); // Average of 5 readings
+    if (digitalRead(HX711_DT) == LOW && scale.is_ready()) {
+      weight = scale.get_units(1); // Single read to prevent blocking
     }
     
     float pressure = 0.0;
-    if (pressureSensor.is_ready()) {
-      pressure = pressureSensor.get_units(5); // Raw reading for now
+    if (digitalRead(HX710B_DT) == LOW && pressureSensor.is_ready()) {
+      pressure = pressureSensor.get_units(1); // Single read to prevent blocking
     }
 
     // Convert analog values
