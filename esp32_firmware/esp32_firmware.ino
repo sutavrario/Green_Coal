@@ -86,9 +86,12 @@ void loop() {
       pressure = pressureSensor.get_units(5); // Raw reading for now
     }
 
-    // Convert analog values
+    // Convert analog values (add small baseline to avoid exactly 0 readings in clean air)
     float smoke = (mq2_val / 4095.0) * 100.0; 
+    if (smoke < 5.0) smoke = 5.0 + (smoke * 0.1); 
+    
     float airQuality = (mq135_val / 4095.0) * 100.0;
+    if (airQuality < 15.0) airQuality = 15.0 + (airQuality * 0.2);
     // Most analog moisture sensors output Max voltage (4095) when dry, and Min (0) when wet.
     // By doing 100.0 - ..., bone dry air will read as 0.0% instead of 100.0%.
     float moisture_pct = 100.0 - ((moisture_val / 4095.0) * 100.0);

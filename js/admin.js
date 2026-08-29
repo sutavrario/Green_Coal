@@ -333,16 +333,16 @@ const Admin = (() => {
             document.getElementById('iotTempVal').textContent = iot.temperature;
         }
         if (gasSlider) {
-            gasSlider.value = iot.gasEmission;
-            document.getElementById('iotGasVal').textContent = iot.gasEmission;
+            gasSlider.value = iot.smoke;
+            document.getElementById('iotGasVal').textContent = iot.smoke;
         }
         if (moistSlider) {
             moistSlider.value = iot.moisture;
             document.getElementById('iotMoistVal').textContent = iot.moisture;
         }
         if (effSlider) {
-            effSlider.value = iot.efficiency;
-            document.getElementById('iotEffVal').textContent = iot.efficiency;
+            effSlider.value = iot.airQuality;
+            document.getElementById('iotEffVal').textContent = iot.airQuality;
         }
         // Live slider updates
         ['iotTemp', 'iotGas', 'iotMoist', 'iotEff'].forEach(id => {
@@ -361,10 +361,11 @@ const Admin = (() => {
         // Save
         document.getElementById('iotSaveBtn').onclick = () => {
             Store.updateIoT({
+                ...iot,
                 temperature: parseFloat(document.getElementById('iotTemp').value),
-                gasEmission: parseFloat(document.getElementById('iotGas').value),
+                smoke: parseFloat(document.getElementById('iotGas').value),
                 moisture: parseFloat(document.getElementById('iotMoist').value),
-                efficiency: parseFloat(document.getElementById('iotEff').value),
+                airQuality: parseFloat(document.getElementById('iotEff').value),
                 systemOnline: document.getElementById('sysOnlineToggle').checked,
                 reactorStatus: document.getElementById('reactorStatus').value,
             });
@@ -374,18 +375,18 @@ const Admin = (() => {
         document.getElementById('iotRandomBtn').onclick = () => {
             const vals = {
                 temperature: Store.randF(220, 280),
-                gasEmission: Store.randF(5, 30),
+                smoke: Store.randF(5, 30),
                 moisture: Store.randF(8, 25),
-                efficiency: Store.randF(65, 95),
+                airQuality: Store.randF(65, 95),
             };
             document.getElementById('iotTemp').value = vals.temperature.toString();
             document.getElementById('iotTempVal').textContent = vals.temperature.toString();
-            document.getElementById('iotGas').value = vals.gasEmission.toString();
-            document.getElementById('iotGasVal').textContent = vals.gasEmission.toString();
+            document.getElementById('iotGas').value = vals.smoke.toString();
+            document.getElementById('iotGasVal').textContent = vals.smoke.toString();
             document.getElementById('iotMoist').value = vals.moisture.toString();
             document.getElementById('iotMoistVal').textContent = vals.moisture.toString();
-            document.getElementById('iotEff').value = vals.efficiency.toString();
-            document.getElementById('iotEffVal').textContent = vals.efficiency.toString();
+            document.getElementById('iotEff').value = vals.airQuality.toString();
+            document.getElementById('iotEffVal').textContent = vals.airQuality.toString();
             toast('Random values generated — click Save to apply', 'info');
         };
     }
@@ -450,9 +451,3 @@ const Admin = (() => {
     };
 })();
 document.addEventListener('DOMContentLoaded', Admin.init);
-const connectBtn = document.getElementById('connectHardwareBtn');
-if (connectBtn) {
-    connectBtn.addEventListener('click', () => {
-        Store.connectUSB();
-    });
-}

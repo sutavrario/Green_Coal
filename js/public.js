@@ -17,6 +17,12 @@ const PublicApp = (() => {
         setupLeaderboardFilters();
         // Auto-refresh every 5 seconds to pick up admin updates
         refreshInterval = setInterval(renderAll, 2000);
+        const connectBtn = document.getElementById('connectHardwareBtn');
+        if (connectBtn) {
+            connectBtn.addEventListener('click', () => {
+                Store.connectUSB();
+            });
+        }
     }
     function renderAll() {
         renderNotices();
@@ -327,22 +333,34 @@ const PublicApp = (() => {
         const iot = Store.getIoT();
         const els = {
             temp: document.getElementById('pubTemp'),
-            gas: document.getElementById('pubGas'),
+            smoke: document.getElementById('pubSmoke'),
+            air: document.getElementById('pubAir'),
             moist: document.getElementById('pubMoist'),
-            eff: document.getElementById('pubEff'),
+            weight: document.getElementById('pubWeight'),
+            pressure: document.getElementById('pubPressure'),
+            heater: document.getElementById('pubHeater'),
             tempStat: document.getElementById('pubTempStatus'),
-            gasStat: document.getElementById('pubGasStatus'),
+            smokeStat: document.getElementById('pubSmokeStatus'),
+            airStat: document.getElementById('pubAirStatus'),
             moistStat: document.getElementById('pubMoistStatus'),
-            effStat: document.getElementById('pubEffStatus'),
+            weightStat: document.getElementById('pubWeightStatus'),
+            pressureStat: document.getElementById('pubPressureStatus'),
+            heaterStat: document.getElementById('pubHeaterStatus'),
         };
         if (els.temp)
-            els.temp.textContent = iot.temperature.toFixed(1);
-        if (els.gas)
-            els.gas.textContent = iot.gasEmission.toFixed(1);
+            els.temp.textContent = Number(iot.temperature != null ? iot.temperature : 0).toFixed(1);
+        if (els.smoke)
+            els.smoke.textContent = Number(iot.smoke != null ? iot.smoke : 0).toFixed(1);
+        if (els.air)
+            els.air.textContent = Number(iot.airQuality != null ? iot.airQuality : 0).toFixed(1);
         if (els.moist)
-            els.moist.textContent = iot.moisture.toFixed(1);
-        if (els.eff)
-            els.eff.textContent = iot.efficiency.toFixed(1);
+            els.moist.textContent = Number(iot.moisture != null ? iot.moisture : 0).toFixed(1);
+        if (els.weight)
+            els.weight.textContent = Number(iot.weight != null ? iot.weight : 0).toFixed(1);
+        if (els.pressure)
+            els.pressure.textContent = Number(iot.pressure != null ? iot.pressure : 0).toFixed(1);
+        if (els.heater)
+            els.heater.textContent = iot.relayOn ? "ON" : "OFF";
         // Status logic
         if (els.tempStat) {
             const t = iot.temperature;
@@ -350,11 +368,17 @@ const PublicApp = (() => {
             els.tempStat.textContent = status;
             els.tempStat.className = `irt-status ${status.toLowerCase()}`;
         }
-        if (els.gasStat) {
-            const g = iot.gasEmission;
+        if (els.smokeStat) {
+            const g = iot.smoke;
             const status = g < 30 ? 'Safe' : g < 45 ? 'Warning' : 'Danger';
-            els.gasStat.textContent = status;
-            els.gasStat.className = `irt-status ${status.toLowerCase()}`;
+            els.smokeStat.textContent = status;
+            els.smokeStat.className = `irt-status ${status.toLowerCase()}`;
+        }
+        if (els.airStat) {
+            const a = iot.airQuality;
+            const status = a < 40 ? 'Good' : a < 70 ? 'Fair' : 'Poor';
+            els.airStat.textContent = status;
+            els.airStat.className = `irt-status ${status.toLowerCase()}`;
         }
         if (els.moistStat) {
             const m = iot.moisture;
@@ -362,11 +386,22 @@ const PublicApp = (() => {
             els.moistStat.textContent = status;
             els.moistStat.className = `irt-status ${status.toLowerCase()}`;
         }
-        if (els.effStat) {
-            const e = iot.efficiency;
-            const status = e > 85 ? 'Excellent' : e > 70 ? 'Good' : 'Suboptimal';
-            els.effStat.textContent = status;
-            els.effStat.className = `irt-status ${status.toLowerCase()}`;
+        if (els.weightStat) {
+            const w = iot.weight;
+            const status = w > 0 ? 'Loaded' : 'Empty';
+            els.weightStat.textContent = status;
+            els.weightStat.className = `irt-status ${status.toLowerCase()}`;
+        }
+        if (els.pressureStat) {
+            const p = iot.pressure;
+            const status = p < 1000 ? 'Normal' : 'High';
+            els.pressureStat.textContent = status;
+            els.pressureStat.className = `irt-status ${status.toLowerCase()}`;
+        }
+        if (els.heaterStat) {
+            const status = iot.relayOn ? 'Active' : 'Standby';
+            els.heaterStat.textContent = status;
+            els.heaterStat.className = `irt-status ${status.toLowerCase()}`;
         }
         // Main status bar
         const sysLabel = document.getElementById('sysStatusLabel');
@@ -468,9 +503,3 @@ const PublicApp = (() => {
     return { init };
 })();
 document.addEventListener('DOMContentLoaded', PublicApp.init);
-const connectBtn = document.getElementById('connectHardwareBtn');
-if (connectBtn) {
-    connectBtn.addEventListener('click', () => {
-        Store.connectUSB();
-    });
-}

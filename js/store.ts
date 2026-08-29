@@ -292,12 +292,12 @@ export const Store = (() => {
             try {
               const data = JSON.parse(trimmed);
               updateIoT({
-                temperature: parseFloat(data.temperature) || 0,
-                smoke: parseFloat(data.smoke) || 0,
-                airQuality: parseFloat(data.airQuality) || 0,
-                moisture: parseFloat(data.moisture) || 0,
-                weight: parseFloat(data.weight) || 0,
-                pressure: parseFloat(data.pressure) || 0,
+                temperature: data.temperature != null ? parseFloat(data.temperature) : 0,
+                smoke: data.smoke != null ? parseFloat(data.smoke) : 0,
+                airQuality: data.airQuality != null ? parseFloat(data.airQuality) : 0,
+                moisture: data.moisture != null ? parseFloat(data.moisture) : 0,
+                weight: data.weight != null ? parseFloat(data.weight) : 0,
+                pressure: data.pressure != null ? parseFloat(data.pressure) : 0,
                 relayOn: !!data.relay_on,
                 systemOnline: true,
                 reactorStatus: data.relay_on ? 'running' : 'idle',

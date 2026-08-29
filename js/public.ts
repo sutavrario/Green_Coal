@@ -361,12 +361,12 @@ const PublicApp = (() => {
       heaterStat: document.getElementById('pubHeaterStatus'),
     };
 
-    if (els.temp) els.temp.textContent = Number(iot.temperature || 0).toFixed(1);
-    if (els.smoke) els.smoke.textContent = Number(iot.smoke || 0).toFixed(1);
-    if (els.air) els.air.textContent = Number(iot.airQuality || 0).toFixed(1);
-    if (els.moist) els.moist.textContent = Number(iot.moisture || 0).toFixed(1);
-    if (els.weight) els.weight.textContent = Number(iot.weight || 0).toFixed(1);
-    if (els.pressure) els.pressure.textContent = Number(iot.pressure || 0).toFixed(1);
+    if (els.temp) els.temp.textContent = Number(iot.temperature != null ? iot.temperature : 0).toFixed(1);
+    if (els.smoke) els.smoke.textContent = Number(iot.smoke != null ? iot.smoke : 0).toFixed(1);
+    if (els.air) els.air.textContent = Number(iot.airQuality != null ? iot.airQuality : 0).toFixed(1);
+    if (els.moist) els.moist.textContent = Number(iot.moisture != null ? iot.moisture : 0).toFixed(1);
+    if (els.weight) els.weight.textContent = Number(iot.weight != null ? iot.weight : 0).toFixed(1);
+    if (els.pressure) els.pressure.textContent = Number(iot.pressure != null ? iot.pressure : 0).toFixed(1);
     if (els.heater) els.heater.textContent = iot.relayOn ? "ON" : "OFF";
 
     // Status logic

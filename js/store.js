@@ -91,9 +91,12 @@ export const Store = (() => {
         // IoT Sensor Data (Initialize Offline until ESP32 connects)
         set('iot', {
             temperature: 0,
-            gasEmission: 0,
+            smoke: 0,
+            airQuality: 0,
             moisture: 0,
-            efficiency: 0,
+            weight: 0,
+            pressure: 0,
+            relayOn: false,
             systemOnline: false,
             reactorStatus: 'offline',
             lastUpdated: new Date().toISOString(),
@@ -227,7 +230,17 @@ export const Store = (() => {
         catch (err) {
             console.error(err);
             alert("Failed to connect to USB.");
-            updateIoT({ systemOnline: false, reactorStatus: 'offline' });
+            updateIoT({
+                temperature: 0,
+                smoke: 0,
+                airQuality: 0,
+                moisture: 0,
+                weight: 0,
+                pressure: 0,
+                relayOn: false,
+                systemOnline: false,
+                reactorStatus: 'offline'
+            });
         }
     }
     async function readSerialData() {
@@ -251,16 +264,50 @@ export const Store = (() => {
                         try {
                             const data = JSON.parse(trimmed);
                             updateIoT({
-                                temperature: parseFloat(data.temperature).toFixed(1) || 0,
-                                gasEmission: parseFloat(data.gasEmission).toFixed(1) || 0,
-                                moisture: parseFloat(data.moisture).toFixed(1) || 0,
-                                efficiency: parseFloat(data.efficiency).toFixed(1) || 0,
+                                temperature: data.temperature != null ? parseFloat(data.temperature) : 0,
+                                smoke: data.smoke != null ? parseFloat(data.smoke) : 0,
+                                airQuality: data.airQuality != null ? parseFloat(data.airQuality) : 0,
+                                moisture: data.moisture != null ? parseFloat(data.moisture) : 0,
+                                weight: data.weight != null ? parseFloat(data.weight) : 0,
+                                pressure: data.pressure != null ? parseFloat(data.pressure) : 0,
+                                relayOn: !!data.relay_on,
                                 systemOnline: true,
                                 reactorStatus: data.relay_on ? 'running' : 'idle',
                             });
+                            // Derive Live Process Status from Sensor Data
+                            const temp = parseFloat(data.temperature) || 0;
+                            const isRelayOn = !!data.relay_on;
+                            let stage = 'collection';
+                            let stageLabel = 'System Idle';
+                            let progress = 0;
+                            if (isRelayOn) {
+                                stage = 'torrefaction';
+                                stageLabel = 'Torrefaction in Progress';
+                                // Estimate progress based on temperature (assuming target is ~300C)
+                                progress = Math.min(95, Math.max(10, ((temp - 30) / 270) * 100));
+                            }
+                            else if (temp > 60) {
+                                stage = 'cooling';
+                                stageLabel = 'Cooling Phase';
+                                progress = Math.min(100, Math.max(0, 100 - ((temp - 60) / 240) * 100));
+                            }
+                            else if (temp > 0) {
+                                stage = 'completed';
+                                stageLabel = 'Batch Complete';
+                                progress = 100;
+                            }
+                            const currentProcess = getProcess();
+                            updateProcess({
+                                ...currentProcess,
+                                stage,
+                                stageLabel,
+                                progress: progress,
+                                eta: isRelayOn ? `${Math.max(1, Math.round((100 - progress) * 0.4))} mins` : '—',
+                            });
                         }
                         catch (e) {
-                            console.warn("Invalid JSON from serial", e);
+                            console.warn("Invalid JSON from serial:", trimmed);
+                            console.warn(e);
                         }
                     }
                 }
@@ -271,7 +318,17 @@ export const Store = (() => {
         }
         finally {
             reader.releaseLock();
-            updateIoT({ systemOnline: false, reactorStatus: 'offline' });
+            updateIoT({
+                temperature: 0,
+                smoke: 0,
+                airQuality: 0,
+                moisture: 0,
+                weight: 0,
+                pressure: 0,
+                relayOn: false,
+                systemOnline: false,
+                reactorStatus: 'offline'
+            });
         }
     }
     async function sendSerialCommand(cmd) {
