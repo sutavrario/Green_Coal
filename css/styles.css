@@ -171,23 +171,24 @@ body {
    SIDEBAR
    ============================================ */
 .sidebar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
-  width: var(--sidebar-width);
-  height: 100vh;
+  width: 100%;
+  height: auto;
   background: linear-gradient(180deg, rgba(15, 21, 32, 0.98) 0%, rgba(10, 14, 23, 0.99) 100%);
-  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   z-index: 100;
   transition: transform var(--transition-slow);
   backdrop-filter: blur(20px);
 }
 
 .sidebar-header {
-  padding: 24px 20px;
-  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  border-right: 1px solid var(--border);
 }
 
 .logo {
@@ -231,11 +232,12 @@ body {
 /* Navigation */
 .sidebar-nav {
   flex: 1;
-  padding: 16px 12px;
+  padding: 0 24px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  align-items: center;
 }
 
 .nav-item {
@@ -267,13 +269,13 @@ body {
 .nav-item.active::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 24px;
-  background: linear-gradient(180deg, var(--primary), var(--cyan));
-  border-radius: 0 4px 4px 0;
+  left: 50%;
+  bottom: -1px;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--cyan));
+  border-radius: 4px 4px 0 0;
 }
 
 .nav-icon {
@@ -339,7 +341,7 @@ body {
    MAIN CONTENT
    ============================================ */
 .main-content {
-  margin-left: var(--sidebar-width);
+  margin-left: 0;
   min-height: 100vh;
   position: relative;
   z-index: 1;
@@ -347,8 +349,7 @@ body {
 
 /* Top Bar */
 .topbar {
-  position: sticky;
-  top: 0;
+  position: relative;
   height: var(--topbar-height);
   display: flex;
   align-items: center;
