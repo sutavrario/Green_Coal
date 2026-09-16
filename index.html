@@ -81,7 +81,26 @@
   <div class="bg-orb bg-orb-2"></div>
 
   <!-- ═══════════════════════════════════════════
-       SIDEBAR
+       TOP BAR (Citizen Dashboard Header)
+       ═══════════════════════════════════════════ -->
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="topbar-title">
+      <h2 id="topbarTitle">Citizen Dashboard</h2>
+      <span class="topbar-subtitle">Greenville Municipal Corporation</span>
+    </div>
+    <div class="topbar-actions">
+      <button id="connectHardwareBtn" class="exit-btn" style="background: rgba(19, 136, 8, 0.3); color: #138808;">🔌 Connect USB</button>
+      <button id="exitToSplashBtn" class="exit-btn">❌ Exit</button>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span id="sysStatusLabel">System Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR (Navigation)
        ═══════════════════════════════════════════ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -128,22 +147,7 @@
        ═══════════════════════════════════════════ -->
   <main class="main-content">
     
-    <!-- Top Bar -->
-    <header class="topbar">
-      <button class="menu-toggle" id="menuToggle">☰</button>
-      <div class="topbar-title">
-        <h2 id="topbarTitle">Citizen Dashboard</h2>
-        <span class="topbar-subtitle">Greenville Municipal Corporation</span>
-      </div>
-      <div class="topbar-actions">
-        <button id="connectHardwareBtn" class="exit-btn" style="background: rgba(19, 136, 8, 0.3); color: #138808;">🔌 Connect USB</button>
-        <button id="exitToSplashBtn" class="exit-btn">❌ Exit</button>
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          <span id="sysStatusLabel">System Online</span>
-        </div>
-      </div>
-    </header>
+
 
   <div class="public-content">
 
