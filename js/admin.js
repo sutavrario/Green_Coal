@@ -467,4 +467,5 @@ const Admin = (() => {
         toggleNotice, deleteNotice,
     };
 })();
+window.Admin = Admin;
 document.addEventListener('DOMContentLoaded', Admin.init);

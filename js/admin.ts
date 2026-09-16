@@ -474,4 +474,5 @@ const Admin = (() => {
   };
 })();
 
+(window as any).Admin = Admin;
 document.addEventListener('DOMContentLoaded', Admin.init);
