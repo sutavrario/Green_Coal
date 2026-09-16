@@ -290,14 +290,14 @@ const PublicApp = (() => {
       const isMyWard = s.wardId === selectedWardId;
       const statusLabels = { 'scheduled': '📅 Scheduled', 'in-progress': '🚛 In Progress', 'completed': '✅ Completed', 'delayed': '⏰ Delayed' };
       return `
-        <div class="schedule-card" style="${isMyWard ? 'border-color:var(--border-accent);background:rgba(16,185,129,0.03);' : ''}">
-          <div class="schedule-icon">${isMyWard ? '📍' : '🗑️'}</div>
-          <div class="schedule-info">
-            <h4>${s.wardName} ${isMyWard ? '(Your Ward)' : ''}</h4>
-            <p>📅 ${s.day} at ${s.time}</p>
-            <span class="collector">🚛 Collector: ${s.collector}</span>
+        <div class="sched-card ${s.status}">
+          <div style="font-size:24px; margin-bottom:8px;">${isMyWard ? '📍' : '🗑️'}</div>
+          <div class="sched-ward">${s.wardName} ${isMyWard ? '(Your Ward)' : ''}</div>
+          <div class="sched-row">📅 ${s.day} at ${s.time}</div>
+          <div class="sched-row">🚛 Collector: ${s.collector}</div>
+          <div class="sched-row" style="margin-top:8px; border:none; padding:0;">
+            <span class="sched-status-tag ${s.status}">${statusLabels[s.status] || s.status}</span>
           </div>
-          <span class="schedule-status ${s.status}">${statusLabels[s.status] || s.status}</span>
         </div>
       `;
     }).join('');
