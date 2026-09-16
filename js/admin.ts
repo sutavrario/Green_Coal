@@ -110,8 +110,26 @@ const Admin = (() => {
       <div class="quick-card" onclick="Admin.go('schedules')"><div class="q-icon">🗓️</div><div class="q-title">Edit Schedule</div><div class="q-desc">Update collection times</div></div>
       <div class="quick-card" onclick="Admin.go('iot')"><div class="q-icon">📡</div><div class="q-title">IoT Controls</div><div class="q-desc">Adjust sensor readings</div></div>
       <div class="quick-card" onclick="Admin.go('process')"><div class="q-icon">🏭</div><div class="q-title">Process Control</div><div class="q-desc">Manage batch status</div></div>
-      
     `;
+
+    // IoT Snapshot
+    const iotSnapshot = document.getElementById('iotSnapshot');
+    if (iotSnapshot) {
+      iotSnapshot.innerHTML = `
+        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 24px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div><div style="font-size:12px; color:var(--text-muted)">🌡️ Temp</div><div style="font-size:18px; font-weight:800; color:var(--text-main)">${Number(iot.temperature || 0).toFixed(1)} °C</div></div>
+            <div><div style="font-size:12px; color:var(--text-muted)">💨 Smoke</div><div style="font-size:18px; font-weight:800; color:var(--text-main)">${Number(iot.smoke || 0).toFixed(1)} %</div></div>
+            <div><div style="font-size:12px; color:var(--text-muted)">🌿 Air Quality</div><div style="font-size:18px; font-weight:800; color:var(--text-main)">${Number(iot.airQuality || 0).toFixed(1)} AQI</div></div>
+            <div><div style="font-size:12px; color:var(--text-muted)">💧 Moisture</div><div style="font-size:18px; font-weight:800; color:var(--text-main)">${Number(iot.moisture || 0).toFixed(1)} %</div></div>
+            <div><div style="font-size:12px; color:var(--text-muted)">⚖️ Weight</div><div style="font-size:18px; font-weight:800; color:var(--text-main)">${Number(iot.weight || 0).toFixed(1)} kg</div></div>
+            <div><div style="font-size:12px; color:var(--text-muted)">🔥 Heater</div><div style="font-size:18px; font-weight:800; color:var(--accent)">${iot.relayOn ? 'ON' : 'OFF'}</div></div>
+          </div>
+          <button class="btn btn-ghost" style="width: 100%;" onclick="Admin.go('iot')">View Full Diagnostics</button>
+        </div>
+      `;
+    }
+
 
     // Ward summary table
     const wards = Store.getLeaderboard('points');
