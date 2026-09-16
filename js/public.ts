@@ -436,19 +436,18 @@ const PublicApp = (() => {
 
     container.innerHTML = podiumOrder.map((w, i) => {
       const rank = ranks[i];
+      const rankClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : 'bronze';
+      const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : '🥉';
       const isMyWard = w.id === selectedWardId;
       const value = w[currentSort].toLocaleString('en-IN');
       const unit = unitMap[currentSort] || '';
 
       return `
-        <div class="podium-rank rank-${rank} ${isMyWard ? 'highlight' : ''}">
-          <div class="podium-avatar">${rank === 1 ? '🥇' : rank === 2 ? '🥈' : '🥉'}</div>
-          <div class="podium-info">
-            <div class="podium-name">${w.name}</div>
-            <div class="podium-val">${value} ${unit}</div>
-            <div class="podium-label">Ward ${w.id}</div>
-          </div>
-          <div class="podium-base"><span>${rank}</span></div>
+        <div class="podium-item ${rankClass}">
+          <div class="podium-medal">${medal}</div>
+          <div class="podium-ward">${w.name} ${isMyWard ? '📍' : ''}</div>
+          <div class="podium-points">${value} ${unit}</div>
+          <div class="podium-label">Ward ${w.id}</div>
         </div>
       `;
     }).join('');
@@ -471,11 +470,12 @@ const PublicApp = (() => {
 
       return `<tr style="${isMyWard ? 'background:rgba(255, 153, 51, 0.05);' : ''}">
         <td>${medal ? `<span class="lb-medal">${medal}</span>` : `<span class="lb-rank">${rank}</span>`}</td>
-        <td><span class="lb-ward">${w.name}</span>${isMyWard ? ' 📍' : ''}<br><span style="font-size:10px;color:var(--text-muted)">Ward ${w.id}</span></td>
+        <td><span class="lb-ward-name">${w.name}</span>${isMyWard ? ' 📍' : ''}<br><span style="font-size:10px;color:var(--text-muted)">Ward ${w.id}</span></td>
         <td><span class="lb-zone ${w.zone.toLowerCase()}">${w.zone}</span></td>
-        <td><div class="lb-points-cell"><span class="lb-pts">${displayVal} ${unitMap[currentSort]}</span><div class="lb-bar"><div class="lb-bar-fill" style="width:${barW}%; background:var(--primary)"></div></div></div></td>
+        <td><span class="lb-pts">${displayVal} ${unitMap[currentSort]}</span></td>
         <td class="mono">${w.wasteCollected.toLocaleString('en-IN')} kg</td>
         <td class="mono text-green">${w.carbonSaved.toLocaleString('en-IN')} kg</td>
+        <td><div class="lb-bar-wrap"><div class="lb-bar-fill" style="width:${barW}%;"></div></div></td>
       </tr>`;
     }).join('');
   }
